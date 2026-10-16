@@ -1,114 +1,48 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Moje obiegi</title>
-
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #111;
-      color: white;
-      margin: 0;
-      padding: 20px;
-    }
-
-    .app {
-      max-width: 500px;
-      margin: auto;
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    .date {
-      text-align: center;
-      color: #aaa;
-      margin-bottom: 25px;
-    }
-
-    .obiegi {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-
-    button {
-      font-size: 20px;
-      padding: 16px;
-      border: 0;
-      border-radius: 12px;
-      cursor: pointer;
-    }
-
-    #wynik {
-      margin-top: 25px;
-      padding: 20px;
-      background: #222;
-      border-radius: 16px;
-      line-height: 1.6;
-    }
-  </style>
-</head>
-
-<body>
-
-<div class="app">
-
-  <h1>🚆 Moje obiegi</h1>
-
-  <div class="date" id="data"></div>
-
-  <div class="obiegi">
-    <button onclick="pokaz(1)">1</button>
-    <button onclick="pokaz(2)">2</button>
-    <button onclick="pokaz(3)">3</button>
-    <button onclick="pokaz(4)">4</button>
-    <button onclick="pokaz(5)">5</button>
-    <button onclick="pokaz(6)">6</button>
-    <button onclick="pokaz(7)">7</button>
-    <button onclick="pokaz(8)">8</button>
-    <button onclick="pokaz(9)">9</button>
-    <button onclick="pokaz(10)">10</button>
-    <button onclick="pokaz(11)">11</button>
-  </div>
-
-  <div id="wynik">
-    Wybierz obieg.
-  </div>
-
-</div>
-
-<script>
-  // Doba robocza zmienia się o 06:00
-  const teraz = new Date();
-  const dataRobocza = new Date(teraz);
-  dataRobocza.setHours(dataRobocza.getHours() - 6);
-
-  const dni = [
-    "niedziela",
-    "poniedziałek",
-    "wtorek",
-    "środa",
-    "czwartek",
-    "piątek",
-    "sobota"
-  ];
-
-  const dzien = dni[dataRobocza.getDay()];
-
-  document.getElementById("data").textContent =
-    "Dzień roboczy: " + dzien;
-
-  function pokaz(numer) {
-    document.getElementById("wynik").innerHTML =
-      "<strong>" + dzien.toUpperCase() +
-      " • OBIEG " + numer + "</strong><br><br>" +
-      "Tutaj za chwilę wstawimy dane obiegu.";
-  }
-</script>
-
-</body>
-</html>
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#10243b"><title>Moje obiegi</title><style>:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#091827;color:#f5f8ff}main{max-width:640px;margin:auto;padding:26px 17px 65px}h1{font-size:29px;margin:8px 0}p{color:#adc0d3}h2{font-size:17px;margin:28px 0 12px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.days{grid-template-columns:repeat(2,1fr)}button{cursor:pointer;border:1px solid #38516a;background:#172e45;color:white;border-radius:13px;padding:16px 8px;font-size:16px;font-weight:650}button.active{background:#38a6ff;color:#061524;border-color:#38a6ff}button:focus-visible{outline:3px solid #ffca63}#result{margin-top:23px;background:#142c43;border:1px solid #39516a;border-radius:18px;padding:20px;line-height:1.55}#result h2{font-size:23px;margin:0 0 12px}.detail{padding:12px 0;border-top:1px solid #334a61;font-size:17px;white-space:pre-wrap}.hint{font-size:13px;color:#91abc1}#route{font-weight:700}footer{margin-top:24px;color:#91abc1;font-size:12px}</style></head><body><main><h1>🚇 Moje obiegi</h1><p>Wybierz rodzaj dnia, a następnie numer obiegu.</p><h2>1. Rodzaj dnia</h2><div class="grid days" id="days"></div><h2>2. Numer obiegu</h2><div class="grid" id="circuits"></div><section id="result" aria-live="polite"><p>Wybierz dzień i obieg, aby zobaczyć szczegóły.</p></section><footer>Dane przepisane z działającego skrótu „Mój obieg 3”. Sprawdź zgodność z aktualnym rozkładem.</footer></main><script>
+const raw=`Poniedziałek-Czwartek|1|🌙 Noc: C4 - 00:16 | 🛑 STOP: C9 o 00:35 | 🌅 Rano: ob.10 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C21
+Poniedziałek-Czwartek|2|🌙 Noc: C4 - 22:58 | 🛑 STOP: C15 o 23:25 | 🌅 Rano: ob.4 | ⏰ START: 05:00 | 🛤️ Trasa: C15->C4
+Poniedziałek-Czwartek|3|🌙 Noc: C4 - 00:25 | 🛑 STOP: C6 o 00:40 | 🌅 Rano: ob.11 | ⏰ START: 05:00 | 🛤️ Trasa: C6->C21
+Poniedziałek-Czwartek|4|🌙 Noc: C4 - 00:35 | 🛑 STOP: C4 | 🌅 Rano: P1 ob.8 | ⏰ START: (P1_4:20 - C4->C21) 05:14 | 🛤️ Trasa: C21->C4
+Poniedziałek-Czwartek|5|🌙 Noc: C4 - 00:45 (ostatni z C21 - 00:13) | 🛑 STOP: C4 | 🌅 Rano: ob.1 | ⏰ START: 05:00 | 🛤️ Trasa: C4->C21
+Poniedziałek-Czwartek|6|🌙 Noc: C21 - 00:06 | 🛑 STOP: C9 o 00:38 | 🌅 Rano: ob.3 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C4
+Poniedziałek-Czwartek|7|🌙 Noc: C21 - 00:14 | 🛑 STOP: C18 o 00:25 | 🌅 Rano: ob.5 | ⏰ START: 05:00 | 🛤️ Trasa: C18->C4
+Poniedziałek-Czwartek|8|🌙 Noc: C21 - 00:23 | 🛑 STOP: C21 | 🌅 Rano: P2 ob.2 | ⏰ START: (P2_4:20 - C21->C4) 05:07 | 🛤️ Trasa: C4->C21
+Poniedziałek-Czwartek|9|🌙 Noc: C21 - 00:31 | 🛑 STOP: C21 | 🌅 Rano: ob.6 | ⏰ START: 05:00 | 🛤️ Trasa: C21->C4
+Poniedziałek-Czwartek|10|🌙 Noc: C21 - 00:40 | 🛑 STOP: C21 | 🌅 Rano: ob.7 | ⏰ START: 05:07 | 🛤️ Trasa: C21->C4
+Poniedziałek-Czwartek|11|🌙 Noc: C21 - 00:50 (ostani z C4 - 00:18) | 🛑 STOP: C21 | 🌅 Rano: ob.9 | ⏰ START: 05:21 | 🛤️ Trasa: C21->C4
+Piątek|1|🌙 Noc: C21 - 02:46 (ostani z C4 - 2:13) | 🛑 STOP: C21 | 🌅 Rano: ob.9 | ⏰ START: 05:23 | 🛤️ Trasa: C21->C4
+Piątek|2|🌙 Noc: C4 - 00:25 | 🛑 STOP: C15 o 00:50 | 🌅 Rano: ob.4 | ⏰ START: 05:00 | 🛤️ Trasa: C15->C4
+Piątek|3|🌙 Noc: C4 - 02:11 | 🛑 STOP: C9 o 02:30 | 🌅 Rano: ob.3 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C4
+Piątek|4|🌙 Noc: C4 - 23:20 | 🛑 STOP: C6 o 23:35 | 🌅 Rano: ob.11 | ⏰ START: 05:00 | 🛤️ Trasa: C6->C21
+Piątek|5|🌙 Noc: C4 - 02:26 | 🛑 STOP: C4 | 🌅 Rano: P1 ob.8 | ⏰ START: (P1_4:20 - C4->C21) 05:15 | 🛤️ Trasa: 21->C4
+Piątek|6|🌙 Noc: C21 - 00:12 | 🛑 STOP: C21 | 🌅 Rano: P2 ob.2 | ⏰ START: (P2_4:20 - C21->C4) 05:08 | 🛤️ Trasa: C4->C21
+Piątek|7|🌙 Noc: C4 - 02:41 (ostatni z C21 - 2:08) | 🛑 STOP: C4 | 🌅 Rano: ob.1 | ⏰ START: 05:00 | 🛤️ Trasa: C4->C21
+Piątek|8|🌙 Noc: C21 - 00:30 | 🛑 STOP: C21 | 🌅 Rano: ob.6 | ⏰ START: 05:00 | 🛤️ Trasa: C21->C4
+Piątek|9|🌙 Noc: C4 - 23:55 | 🛑 STOP: C9 o 01:15 | 🌅 Rano: ob.10 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C21
+Piątek|10|🌙 Noc: C21 - 02:16 | 🛑 STOP: C18 o 02:27 | 🌅 Rano: ob.5 | ⏰ START: 05:00 | 🛤️ Trasa: C18->C4
+Piątek|11|🌙 Noc: C21 - 02:31 | 🛑 STOP: C21 | 🌅 Rano: ob.7 | ⏰ START: 05:08 | 🛤️ Trasa: C21->C4
+Sobota|1|🌙 Noc: C21 - 23:55 | 🛑 STOP: C21 | 🌅 Rano: ob.9 | ⏰ START: 05:23 | 🛤️ Trasa: C21->C4
+Sobota|2|🌙 Noc: C4 - 02:11 | 🛑 STOP: C9 o 02:25 | 🌅 Rano: ob.10 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C21
+Sobota|3|🌙 Noc: C4 - 02:26 | 🛑 STOP: C4 | 🌅 Rano: P1 ob.8 | ⏰ START: (P1_4:20 - C4->C21) 05:15 | 🛤️ Trasa: C21->C4
+Sobota|4|🌙 Noc: C21 - 00:21 | 🛑 STOP: C18 o 00:38 | 🌅 Rano: ob.5 | ⏰ START: 05:00 | 🛤️ Trasa: C18->C21
+Sobota|5|🌙 Noc: C4 - 02:41 (ostatni z C21 - 2:08) | 🛑 STOP: C4 | 🌅 Rano: ob.1 | ⏰ START: 05:00 | 🛤️ Trasa: C4->C21
+Sobota|6|🌙 Noc: C4 - 23:52 | 🛑 STOP: C6 o 00:20 | 🌅 Rano: ob.11 | ⏰ START: 05:00 | 🛤️ Trasa: C6->C21
+Sobota|7|🌙 Noc: C21 - 02:16 | 🛑 STOP: C21 | 🌅 Rano: P2 ob.2 | ⏰ START: (P2_4:20 - C21->C4) 05:08 | 🛤️ Trasa: C4->C21
+Sobota|8|🌙 Noc: C21 - 00:08 | 🛑 STOP: C15 o 00:30 | 🌅 Rano: ob.4 | ⏰ START: 05:00 | 🛤️ Trasa: C15->C4
+Sobota|9|🌙 Noc: C21 - 02:31 | 🛑 STOP: C21 | 🌅 Rano: ob.6 | ⏰ START: 05:00| 🛤️ Trasa: C21->C4
+Sobota|10|🌙 Noc: C21 - 02:46 (ostani z C4 - 2:13) | 🛑 STOP: C21 | 🌅 Rano: ob.7 | ⏰ START: 05:08 | 🛤️ Trasa: C21->C4
+Sobota|11|🌙 Noc: C4 - 23:08 | 🛑 STOP: C9 o 23:25 | 🌅 Rano: ob.3 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C4
+Niedziela|1|🌙 Noc: C21 - 00:11 | 🛑 STOP: C18 o 00:20 | 🌅 Rano: ob.5 | ⏰ START: 05:00 | 🛤️ Trasa: C18->C4
+Niedziela|2|🌙 Noc: C21 - 00:20 | 🛑 STOP: C21 | 🌅 Rano: P2 ob.2 | ⏰ START: (P2_4:20 - C21->C4) 05:07 | 🛤️ Trasa: C4->C21
+Niedziela|3|🌙 Noc: C21 - 00:30 | 🛑 STOP: C21 | 🌅 Rano: ob.6 | ⏰ START: 05:00 | 🛤️ Trasa: C21->C4
+Niedziela|4|🌙 Noc: C4 - 23:48 | 🛑 STOP: C6 o 00:05 | 🌅 Rano: ob.11 | ⏰ START: 05:00 | 🛤️ Trasa: C6->C21
+Niedziela|5|🌙 Noc: C21 - 00:40 | 🛑 STOP: C21 | 🌅 Rano: ob.7 | ⏰ START: 05:07 | 🛤️ Trasa: C21->C4
+Niedziela|6|🌙 Noc: C21 - 00:50 (ostani z C4 - 00:18) | 🛑 STOP: C21 | 🌅 Rano: ob.9 | ⏰ START: 05:21 | 🛤️ Trasa: C21->C4
+Niedziela|7|🌙 Noc: C4 - 00:16 | 🛑 STOP: C15 o 00:35 | 🌅 Rano: ob.4 | ⏰ START: 05:00 | 🛤️ Trasa: C15->C4
+Niedziela|8|🌙 Noc: C4 - 00:25 | 🛑 STOP: C9 o 00:45 | 🌅 Rano: ob.10 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C21
+Niedziela|9|🌙 Noc: C4 - 00:35 | 🛑 STOP: C4 | 🌅 Rano: P1 ob.8 | ⏰ START: (P1_4:20 - C4->C21) 05:14 | 🛤️ Trasa: C21->C4
+Niedziela|10|🌙 Noc: C4 - 23:08 | 🛑 STOP: C9 o 23:30 | 🌅 Rano: ob.3 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C4
+Niedziela|11|🌙 Noc: C4 - 00:45 (ostatni z C21 - 00:13) | 🛑 STOP: C4 | 🌅 Rano: ob.1 | ⏰ START: 05:00 | 🛤️ Trasa: C4->C21`;
+const data=new Map(raw.trim().split('\n').map(line=>{const [day,num,...fields]=line.split('|').map(x=>x.trim());return [`${day}|${num}`,fields]}));
+const names=['Poniedziałek-Czwartek','Piątek','Sobota','Niedziela'];let selectedDay=null,selectedCircuit=null;const dayBox=document.querySelector('#days'),circuitBox=document.querySelector('#circuits'),result=document.querySelector('#result');function makeButton(text,fn,active){const b=document.createElement('button');b.textContent=text;b.className=active?'active':'';b.onclick=fn;return b}function draw(){dayBox.replaceChildren(...names.map(d=>makeButton(d,()=>{selectedDay=d;selectedCircuit=null;draw()},selectedDay===d)));circuitBox.replaceChildren(...Array.from({length:11},(_,i)=>makeButton(String(i+1),()=>{if(!selectedDay){result.textContent='Najpierw wybierz rodzaj dnia.';return}selectedCircuit=i+1;draw()},selectedCircuit===i+1)));result.replaceChildren();if(!selectedDay||!selectedCircuit){const p=document.createElement('p');p.textContent=!selectedDay?'Najpierw wybierz rodzaj dnia.':'Teraz wybierz numer obiegu.';result.append(p);return}const h=document.createElement('h2');h.textContent=`Obieg ${selectedCircuit} · ${selectedDay}`;result.append(h);for(const field of data.get(`${selectedDay}|${selectedCircuit}`)||[]){const div=document.createElement('div');div.className='detail';div.textContent=field.replaceAll('->',' → ');result.append(div)}}draw();
+</script></body></html>
