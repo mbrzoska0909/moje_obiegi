@@ -1,0 +1,44 @@
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b1524"><title>Moje obiegi — Okno jak w Skrótach</title><style>*{box-sizing:border-box}body{margin:0;background:#0b1524;color:#f4f7fc;font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif}main{max-width:560px;margin:auto;padding:24px 16px 60px}h1{font-size:27px;margin:10px 0}p{color:#aebed2}h2{font-size:16px;margin:26px 0 12px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.numbers{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}button{font:inherit;cursor:pointer;border:1px solid #3b516c;background:#1c2e46;color:#f7faff;border-radius:14px;padding:17px 8px;font-weight:650}button.active{background:#277bd6;border-color:#62aeff}button:focus-visible{outline:3px solid #8bc7ff}#hint{padding:18px;color:#aebed2;background:#1b2b40;border-radius:18px;margin-top:26px}.overlay{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:18px;z-index:10}.overlay.show{display:flex}.panel{background:#263448;border:1px solid #53667f;border-radius:25px;padding:22px;width:min(100%,460px);box-shadow:0 25px 80px #0008}.panel h2{font-size:21px;margin:0 0 16px}.detail{padding:11px 0;border-bottom:1px solid #ffffff1b;line-height:1.5}.detail:last-child{border:0}.done{width:100%;margin-top:16px;background:#178df0;border:0}.sheetWrap{align-items:end;padding:0}.sheet{border-radius:26px 26px 0 0;width:100%;max-width:560px;padding-bottom:max(20px,env(safe-area-inset-bottom))}.handle{height:5px;width:44px;background:#8796aa;border-radius:9px;margin:0 auto 22px}.notifyWrap{align-items:flex-start;padding-top:max(85px,env(safe-area-inset-top))}.notification{background:#303c50ed;backdrop-filter:blur(20px);border-radius:23px}.notification .detail{padding:7px 0;font-size:14px}.close{float:right;border:0;padding:3px 9px;background:transparent;font-size:23px}.small{font-size:13px;color:#b6c5d7}</style></head><body><main><h1>🚇 Moje obiegi</h1><p>Wersja 1: Okno jak w Skrótach</p><h2>1. Wybierz rodzaj dnia</h2><div id="days" class="grid"></div><h2>2. Wybierz numer obiegu</h2><div id="numbers" class="numbers"></div><div id="hint">Najpierw wybierz rodzaj dnia.</div></main><div id="overlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="heading"><div class="panel"><h2 id="heading"></h2><div id="details"></div><button id="dismiss" class="done">Gotowe</button></div></div><script>const raw=String.raw`Poniedziałek-Czwartek|1|🌙 Noc: C4 - 00:16 | 🛑 STOP: C9 o 00:35 | 🌅 Rano: ob.10 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C21
+Poniedziałek-Czwartek|2|🌙 Noc: C4 - 22:58 | 🛑 STOP: C15 o 23:25 | 🌅 Rano: ob.4 | ⏰ START: 05:00 | 🛤️ Trasa: C15->C4
+Poniedziałek-Czwartek|3|🌙 Noc: C4 - 00:25 | 🛑 STOP: C6 o 00:40 | 🌅 Rano: ob.11 | ⏰ START: 05:00 | 🛤️ Trasa: C6->C21
+Poniedziałek-Czwartek|4|🌙 Noc: C4 - 00:35 | 🛑 STOP: C4 | 🌅 Rano: P1 ob.8 | ⏰ START: (P1_4:20 - C4->C21) 05:14 | 🛤️ Trasa: C21->C4
+Poniedziałek-Czwartek|5|🌙 Noc: C4 - 00:45 (ostatni z C21 - 00:13) | 🛑 STOP: C4 | 🌅 Rano: ob.1 | ⏰ START: 05:00 | 🛤️ Trasa: C4->C21
+Poniedziałek-Czwartek|6|🌙 Noc: C21 - 00:06 | 🛑 STOP: C9 o 00:38 | 🌅 Rano: ob.3 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C4
+Poniedziałek-Czwartek|7|🌙 Noc: C21 - 00:14 | 🛑 STOP: C18 o 00:25 | 🌅 Rano: ob.5 | ⏰ START: 05:00 | 🛤️ Trasa: C18->C4
+Poniedziałek-Czwartek|8|🌙 Noc: C21 - 00:23 | 🛑 STOP: C21 | 🌅 Rano: P2 ob.2 | ⏰ START: (P2_4:20 - C21->C4) 05:07 | 🛤️ Trasa: C4->C21
+Poniedziałek-Czwartek|9|🌙 Noc: C21 - 00:31 | 🛑 STOP: C21 | 🌅 Rano: ob.6 | ⏰ START: 05:00 | 🛤️ Trasa: C21->C4
+Poniedziałek-Czwartek|10|🌙 Noc: C21 - 00:40 | 🛑 STOP: C21 | 🌅 Rano: ob.7 | ⏰ START: 05:07 | 🛤️ Trasa: C21->C4
+Poniedziałek-Czwartek|11|🌙 Noc: C21 - 00:50 (ostani z C4 - 00:18) | 🛑 STOP: C21 | 🌅 Rano: ob.9 | ⏰ START: 05:21 | 🛤️ Trasa: C21->C4
+Piątek|1|🌙 Noc: C21 - 02:46 (ostani z C4 - 2:13) | 🛑 STOP: C21 | 🌅 Rano: ob.9 | ⏰ START: 05:23 | 🛤️ Trasa: C21->C4
+Piątek|2|🌙 Noc: C4 - 00:25 | 🛑 STOP: C15 o 00:50 | 🌅 Rano: ob.4 | ⏰ START: 05:00 | 🛤️ Trasa: C15->C4
+Piątek|3|🌙 Noc: C4 - 02:11 | 🛑 STOP: C9 o 02:30 | 🌅 Rano: ob.3 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C4
+Piątek|4|🌙 Noc: C4 - 23:20 | 🛑 STOP: C6 o 23:35 | 🌅 Rano: ob.11 | ⏰ START: 05:00 | 🛤️ Trasa: C6->C21
+Piątek|5|🌙 Noc: C4 - 02:26 | 🛑 STOP: C4 | 🌅 Rano: P1 ob.8 | ⏰ START: (P1_4:20 - C4->C21) 05:15 | 🛤️ Trasa: 21->C4
+Piątek|6|🌙 Noc: C21 - 00:12 | 🛑 STOP: C21 | 🌅 Rano: P2 ob.2 | ⏰ START: (P2_4:20 - C21->C4) 05:08 | 🛤️ Trasa: C4->C21
+Piątek|7|🌙 Noc: C4 - 02:41 (ostatni z C21 - 2:08) | 🛑 STOP: C4 | 🌅 Rano: ob.1 | ⏰ START: 05:00 | 🛤️ Trasa: C4->C21
+Piątek|8|🌙 Noc: C21 - 00:30 | 🛑 STOP: C21 | 🌅 Rano: ob.6 | ⏰ START: 05:00 | 🛤️ Trasa: C21->C4
+Piątek|9|🌙 Noc: C4 - 23:55 | 🛑 STOP: C9 o 01:15 | 🌅 Rano: ob.10 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C21
+Piątek|10|🌙 Noc: C21 - 02:16 | 🛑 STOP: C18 o 02:27 | 🌅 Rano: ob.5 | ⏰ START: 05:00 | 🛤️ Trasa: C18->C4
+Piątek|11|🌙 Noc: C21 - 02:31 | 🛑 STOP: C21 | 🌅 Rano: ob.7 | ⏰ START: 05:08 | 🛤️ Trasa: C21->C4
+Sobota|1|🌙 Noc: C21 - 23:55 | 🛑 STOP: C21 | 🌅 Rano: ob.9 | ⏰ START: 05:23 | 🛤️ Trasa: C21->C4
+Sobota|2|🌙 Noc: C4 - 02:11 | 🛑 STOP: C9 o 02:25 | 🌅 Rano: ob.10 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C21
+Sobota|3|🌙 Noc: C4 - 02:26 | 🛑 STOP: C4 | 🌅 Rano: P1 ob.8 | ⏰ START: (P1_4:20 - C4->C21) 05:15 | 🛤️ Trasa: C21->C4
+Sobota|4|🌙 Noc: C21 - 00:21 | 🛑 STOP: C18 o 00:38 | 🌅 Rano: ob.5 | ⏰ START: 05:00 | 🛤️ Trasa: C18->C21
+Sobota|5|🌙 Noc: C4 - 02:41 (ostatni z C21 - 2:08) | 🛑 STOP: C4 | 🌅 Rano: ob.1 | ⏰ START: 05:00 | 🛤️ Trasa: C4->C21
+Sobota|6|🌙 Noc: C4 - 23:52 | 🛑 STOP: C6 o 00:20 | 🌅 Rano: ob.11 | ⏰ START: 05:00 | 🛤️ Trasa: C6->C21
+Sobota|7|🌙 Noc: C21 - 02:16 | 🛑 STOP: C21 | 🌅 Rano: P2 ob.2 | ⏰ START: (P2_4:20 - C21->C4) 05:08 | 🛤️ Trasa: C4->C21
+Sobota|8|🌙 Noc: C21 - 00:08 | 🛑 STOP: C15 o 00:30 | 🌅 Rano: ob.4 | ⏰ START: 05:00 | 🛤️ Trasa: C15->C4
+Sobota|9|🌙 Noc: C21 - 02:31 | 🛑 STOP: C21 | 🌅 Rano: ob.6 | ⏰ START: 05:00| 🛤️ Trasa: C21->C4
+Sobota|10|🌙 Noc: C21 - 02:46 (ostani z C4 - 2:13) | 🛑 STOP: C21 | 🌅 Rano: ob.7 | ⏰ START: 05:08 | 🛤️ Trasa: C21->C4
+Sobota|11|🌙 Noc: C4 - 23:08 | 🛑 STOP: C9 o 23:25 | 🌅 Rano: ob.3 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C4
+Niedziela|1|🌙 Noc: C21 - 00:11 | 🛑 STOP: C18 o 00:20 | 🌅 Rano: ob.5 | ⏰ START: 05:00 | 🛤️ Trasa: C18->C4
+Niedziela|2|🌙 Noc: C21 - 00:20 | 🛑 STOP: C21 | 🌅 Rano: P2 ob.2 | ⏰ START: (P2_4:20 - C21->C4) 05:07 | 🛤️ Trasa: C4->C21
+Niedziela|3|🌙 Noc: C21 - 00:30 | 🛑 STOP: C21 | 🌅 Rano: ob.6 | ⏰ START: 05:00 | 🛤️ Trasa: C21->C4
+Niedziela|4|🌙 Noc: C4 - 23:48 | 🛑 STOP: C6 o 00:05 | 🌅 Rano: ob.11 | ⏰ START: 05:00 | 🛤️ Trasa: C6->C21
+Niedziela|5|🌙 Noc: C21 - 00:40 | 🛑 STOP: C21 | 🌅 Rano: ob.7 | ⏰ START: 05:07 | 🛤️ Trasa: C21->C4
+Niedziela|6|🌙 Noc: C21 - 00:50 (ostani z C4 - 00:18) | 🛑 STOP: C21 | 🌅 Rano: ob.9 | ⏰ START: 05:21 | 🛤️ Trasa: C21->C4
+Niedziela|7|🌙 Noc: C4 - 00:16 | 🛑 STOP: C15 o 00:35 | 🌅 Rano: ob.4 | ⏰ START: 05:00 | 🛤️ Trasa: C15->C4
+Niedziela|8|🌙 Noc: C4 - 00:25 | 🛑 STOP: C9 o 00:45 | 🌅 Rano: ob.10 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C21
+Niedziela|9|🌙 Noc: C4 - 00:35 | 🛑 STOP: C4 | 🌅 Rano: P1 ob.8 | ⏰ START: (P1_4:20 - C4->C21) 05:14 | 🛤️ Trasa: C21->C4
+Niedziela|10|🌙 Noc: C4 - 23:08 | 🛑 STOP: C9 o 23:30 | 🌅 Rano: ob.3 | ⏰ START: 05:00 | 🛤️ Trasa: C9->C4
+Niedziela|11|🌙 Noc: C4 - 00:45 (ostatni z C21 - 00:13) | 🛑 STOP: C4 | 🌅 Rano: ob.1 | ⏰ START: 05:00 | 🛤️ Trasa: C4->C21`;const data=new Map(raw.trim().split('\n').map(line=>{const [day,num,...fields]=line.split('|').map(s=>s.trim());return [`${day}|${num}`,fields]}));const days=['Poniedziałek-Czwartek','Piątek','Sobota','Niedziela'];let day=null;const d=document.querySelector('#days'),n=document.querySelector('#numbers'),overlay=document.querySelector('#overlay'),details=document.querySelector('#details'),heading=document.querySelector('#heading'),hint=document.querySelector('#hint');function btn(text,callback,active){const el=document.createElement('button');el.textContent=text;el.className=active?'active':'';el.onclick=callback;return el}function draw(){d.replaceChildren(...days.map(x=>btn(x,()=>{day=x;hint.textContent='Teraz wybierz numer obiegu.';draw()},day===x)));n.replaceChildren(...Array.from({length:11},(_,i)=>btn(String(i+1),()=>show(i+1),false)))}function show(num){if(!day){hint.textContent='Najpierw wybierz rodzaj dnia.';return}heading.textContent=`${day} · Obieg ${num}`;details.replaceChildren(...(data.get(`${day}|${num}`)||[]).map(t=>{let e=document.createElement('div');e.className='detail';e.textContent=t.replaceAll('->',' → ');return e}));overlay.classList.add('show');document.querySelector('#dismiss').focus()}function close(){overlay.classList.remove('show')}document.querySelector('#dismiss').onclick=close;overlay.addEventListener('click',e=>{if(e.target===overlay)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});draw();</script></body></html>
